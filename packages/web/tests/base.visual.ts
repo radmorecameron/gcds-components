@@ -33,7 +33,7 @@ const serveLocalFontFile = (route: Route) => {
   return route.continue();
 };
 
-export const test = base.extend({
+export const visualTestBase = base.extend({
   page: async ({ page }: { page: Page }, use, testInfo) => {
     const filePath = testInfo.file;
     const baseFileName = path
@@ -91,13 +91,20 @@ export const test = base.extend({
   },
 });
 
-export const testMobile = test.extend({
+export const test = visualTestBase.extend({
+  contextOptions: {
+    // Consistent viewport, component widths are relative, so this matters
+    viewport: { width: 1280, height: 800 },
+  },
+});
+
+export const testMobile = visualTestBase.extend({
   contextOptions: {
     ...devices['LG Optimus L70'],
   },
 });
 
-export const testTablet = test.extend({
+export const testTablet = visualTestBase.extend({
   contextOptions: {
     ...devices['Galaxy Tab S9'],
   },
