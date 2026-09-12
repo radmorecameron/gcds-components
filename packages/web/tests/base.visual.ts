@@ -1,4 +1,4 @@
-import { test as base, type Page, type Route } from '@playwright/test';
+import { test as base, devices, type Page, type Route } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
 
@@ -88,5 +88,17 @@ export const test = base.extend({
     ]);
 
     await use(page);
+  },
+});
+
+export const testMobile = test.extend({
+  contextOptions: {
+    ...devices['LG Optimus L70'],
+  },
+});
+
+export const testTablet = test.extend({
+  contextOptions: {
+    ...devices['Galaxy Tab S9'],
   },
 });

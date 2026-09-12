@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { test } from '../../../../tests/base.visual';
+import { test, testMobile } from '../../../../tests/base.visual';
 
 /**
  * Visual regression tests
@@ -38,5 +38,12 @@ test.describe('gcds-table', () => {
     await expect(
       page.locator('[data-variant="filter-sort"] .preview-component'),
     ).toHaveScreenshot('filter-sort.png');
+  });
+
+  testMobile('default - mobile', async ({ page }) => {
+    // Screenshot just the component, not the surrounding preview chrome
+    await expect(
+      page.locator('[data-variant="default"] .preview-component'),
+    ).toHaveScreenshot('default-mobile.png');
   });
 });

@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { test } from '../../../../tests/base.visual';
+import { test, testMobile } from '../../../../tests/base.visual';
 
 /**
  * Visual regression tests
@@ -20,5 +20,18 @@ test.describe('gcds-top-nav', () => {
     await expect(
       page.locator('[data-variant="alignment-end"] .preview-component'),
     ).toHaveScreenshot('alignment-end.png');
+  });
+
+  testMobile('mobile - closed', async ({ page }) => {
+    await expect(
+      page.locator('[data-variant="default"] .preview-component'),
+    ).toHaveScreenshot('mobile-closed.png');
+  });
+
+  testMobile('mobile - open', async ({ page }) => {
+    const element = page.locator('[data-variant="default"] .preview-component');
+    await element.locator('.gcds-trigger--expandable').click();
+
+    await expect(element).toHaveScreenshot('mobile-open.png');
   });
 });
